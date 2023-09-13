@@ -1,0 +1,57 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Stage
+{% endblock %}
+
+{% block body %}
+	<h1>Stage</h1>
+
+	<table class="table" id="t">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Titredestage</th>
+				<th>Descriptiondestage</th>
+				<th>Datedebutstage</th>
+				<th>Datefinstage</th>
+				<th>Dureedestage</th>
+				<th>Lieustage</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody id="myTable">
+			{% for stage in stages %}
+				<tr>
+					<td>{{ stage.id }}</td>
+					<td>{{ stage.titredestage }}</td>
+					<td>{{ stage.descriptiondestage }}</td>
+					<td>{{ stage.datedebutstage ? stage.datedebutstage|date('Y-m-d') : '' }}</td>
+					<td>{{ stage.datefinstage }}</td>
+					<td>{{ stage.dureedestage }}</td>
+					<td>{{ stage.lieustage }}</td>
+					<td>
+						<a href="{{ path('app_stage_show', {'id': stage.id}) }}">show</a>
+						<a href="{{ path('app_stage_edit', {'id': stage.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="8">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_stage_new') }}">Create new</a>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+$("#myInput").on("keyup", function () {
+var value = $(this).val().toLowerCase();
+$("#myTable tr").filter(function () {
+$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+});
+});
+});
+	</script>
+{% endblock %}

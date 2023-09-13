@@ -1,0 +1,57 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Entreprise index
+{% endblock %}
+
+{% block body %}
+	<h1>Entreprise index</h1>
+
+	<table class="table" id="t">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nomdelentreprise</th>
+				<th>Pays</th>
+				<th>Ville</th>
+				<th>Adresse</th>
+				<th>Secteur</th>
+				<th>Description</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody id="myTable">
+			{% for entreprise in entreprises %}
+				<tr>
+					<td>{{ entreprise.id }}</td>
+					<td>{{ entreprise.nomdelentreprise }}</td>
+					<td>{{ entreprise.pays }}</td>
+					<td>{{ entreprise.ville }}</td>
+					<td>{{ entreprise.adresse }}</td>
+					<td>{{ entreprise.secteur }}</td>
+					<td>{{ entreprise.description }}</td>
+					<td>
+						<a href="{{ path('app_entreprise_show', {'id': entreprise.id}) }}">show</a>
+						<a href="{{ path('app_entreprise_edit', {'id': entreprise.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="8">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_entreprise_new') }}">Create new</a>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+$("#myInput").on("keyup", function () {
+var value = $(this).val().toLowerCase();
+$("#myTable tr").filter(function () {
+$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+});
+});
+});
+	</script>
+{% endblock %}

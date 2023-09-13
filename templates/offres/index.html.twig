@@ -1,0 +1,71 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Offres
+{% endblock %}
+
+{% block body %}
+	<h1>Offres</h1>
+
+	<table class="table" id="t">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Anneesexperience</th>
+				<th>Offrename</th>
+				<th>Connaisance</th>
+				<th>Critere</th>
+				<th>Experiencerequise</th>
+				<th>Formation</th>
+				<th>Langue</th>
+				<th>Mission</th>
+				<th>Onmbres_recruteur</th>
+				<th>Salaire</th>
+				<th>Specialite</th>
+				<th>Tacheprincipale</th>
+				<th>Ville</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody id="myTable">
+			{% for offre in offres %}
+				<tr>
+					<td>{{ offre.id }}</td>
+					<td>{{ offre.anneesexperience }}</td>
+					<td>{{ offre.offrename }}</td>
+					<td>{{ offre.connaisance }}</td>
+					<td>{{ offre.critere }}</td>
+					<td>{{ offre.experiencerequise }}</td>
+					<td>{{ offre.formation }}</td>
+					<td>{{ offre.langue }}</td>
+					<td>{{ offre.mission }}</td>
+					<td>{{ offre.onmbresRecruteur }}</td>
+					<td>{{ offre.salaire }}</td>
+					<td>{{ offre.specialite }}</td>
+					<td>{{ offre.tacheprincipale }}</td>
+					<td>{{ offre.ville }}</td>
+					<td>
+						<a href="{{ path('app_offres_show', {'id': offre.id}) }}">show</a>
+						<a href="{{ path('app_offres_edit', {'id': offre.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="15">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_offres_new') }}">Create new</a>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+$("#myInput").on("keyup", function () {
+var value = $(this).val().toLowerCase();
+$("#myTable tr").filter(function () {
+$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+});
+});
+});
+	</script>
+{% endblock %}

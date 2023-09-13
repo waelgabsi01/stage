@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offres index
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		.list-container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+
+		.list-item {
+			width: calc(25% - 20px); /* Distribute 4 items in a row */
+			margin-bottom: 20px;
+			border: 1px solid #ccc;
+			padding: 10px;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<h1>Offres index</h1>
+
+	<div class="list-container">
+		{% for offre in offres %}
+			<div class="list-item">
+				<p></p>
+				<p>
+					<strong>Années d'expérience:</strong>
+					{{ offre.anneesexperience }}</p>
+				<p>
+					<strong>Nom de l'offre:</strong>
+					{{ offre.offrename }}</p>
+				<p>
+					<strong>Connaissance:</strong>
+					{{ offre.connaisance }}</p>
+				<p>
+					<strong>Critère:</strong>
+					{{ offre.critere }}</p>
+				<p>
+					<strong>Expérience requise:</strong>
+					{{ offre.experiencerequise }}</p>
+				<p>
+					<strong>Formation:</strong>
+					{{ offre.formation }}</p>
+				<p>
+					<strong>Langue:</strong>
+					{{ offre.langue }}</p>
+				<p>
+					<strong>Mission:</strong>
+					{{ offre.mission }}</p>
+				<p>
+					<strong>Nombre de recruteurs:</strong>
+					{{ offre.onmbresRecruteur }}</p>
+				<p>
+					<strong>Salaire:</strong>
+					{{ offre.salaire }}</p>
+				<p>
+					<strong>Spécialité:</strong>
+					{{ offre.specialite }}</p>
+				<p>
+					<strong>Tâche principale:</strong>
+					{{ offre.tacheprincipale }}</p>
+				<p>
+					<strong>Ville:</strong>
+					{{ offre.ville }}</p>
+				<a href="{{ path('app_offres_show', {'id': offre.id}) }}">Show</a>
+				<a href="{{ path('app_offres_edit', {'id': offre.id}) }}">Edit</a>
+				<form id="register-form" method="post" action="{{ path('app_regist_new') }}">
+					<input type="hidden" name="register" value="true">
+					<button type="submit" class="btn btn-primary text-white py-3 px-4">Register this item</button>
+				</form>
+
+			</div>
+
+			{% if loop.index % 4 == 0 %}
+				<div style="flex-basis: 100%;"></div>
+				<!-- Add an empty div to start a new row -->
+			{% endif %}
+		{% else %}
+			<p>No records found</p>
+		{% endfor %}
+	</div>
+
+	<a href="{{ path('app_offres_new') }}">Create new</a>
+{% endblock %}

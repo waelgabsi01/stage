@@ -1,0 +1,49 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Registration index
+{% endblock %}
+
+{% block body %}
+	<h1>Registration index</h1>
+
+	<table class="table" id="t">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Dateregistration</th>
+				<th>Statut</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody id="myTable">
+			{% for registration in registrations %}
+				<tr>
+					<td>{{ registration.id }}</td>
+					<td>{{ registration.dateregistration ? registration.dateregistration|date('Y-m-d') : '' }}</td>
+					<td>{{ registration.statut }}</td>
+					<td>
+						<a href="{{ path('app_regist_show', {'id': registration.id}) }}">show</a>
+						<a href="{{ path('app_regist_edit', {'id': registration.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_regist_new') }}">Create new</a>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+$("#myInput").on("keyup", function () {
+var value = $(this).val().toLowerCase();
+$("#myTable tr").filter(function () {
+$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+});
+});
+});
+	</script>
+{% endblock %}

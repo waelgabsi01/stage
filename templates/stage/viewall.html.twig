@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stage index
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		.list-container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+
+		.list-item {
+			width: calc(25% - 20px); /* Distribute 4 items in a row */
+			margin-bottom: 20px;
+			border: 1px solid #ccc;
+			padding: 10px;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<h1>Stage index</h1>
+
+	<div class="list-container">
+		{% for stage in stages %}
+			<div class="list-item">
+				<p></p>
+				<p>
+					<strong>Titre de stage:</strong>
+					{{ stage.titredestage }}</p>
+				<p>
+					<strong>Description de stage:</strong>
+					{{ stage.descriptiondestage }}</p>
+				<p>
+					<strong>Date de début:</strong>
+					{{ stage.datedebutstage ? stage.datedebutstage|date('Y-m-d') : '' }}</p>
+				<p>
+					<strong>Date de fin:</strong>
+					{{ stage.datefinstage }}</p>
+				<p>
+					<strong>Durée de stage:</strong>
+					{{ stage.dureedestage }}</p>
+				<p>
+					<strong>Lieu de stage:</strong>
+					{{ stage.lieustage }}</p>
+				<a href="{{ path('app_stage_show', {'id': stage.id}) }}">Show</a>
+				<a href="{{ path('app_stage_edit', {'id': stage.id}) }}">Edit</a>
+				<form id="register-form" method="post" action="{{ path('app_regist_new') }}">
+					<input type="hidden" name="register" value="true">
+					<button type="submit" class="btn btn-primary text-white py-3 px-4">register this item</button>
+				</form>
+			</div>
+
+			{% if loop.index % 4 == 0 %}
+				<div style="flex-basis: 100%;"></div>
+				<!-- Add an empty div to start a new row -->
+			{% endif %}
+		{% else %}
+			<p>No records found</p>
+		{% endfor %}
+	</div>
+
+	<a href="{{ path('app_stage_new') }}">Create new</a>
+{% endblock %}
